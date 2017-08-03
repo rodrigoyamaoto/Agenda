@@ -3,7 +3,10 @@ package com.example.rodrigo_yoshida.agenda.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -19,30 +22,30 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
 {
 
+    ListView mListView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
 
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
+        mListView = (ListView) findViewById(R.id.activity_main_lv_contact);
+        Button addButton = (Button) findViewById(R.id.activity_main_bt_add);
 
-        //Adding list on XML
-        ListView listView = (ListView) findViewById(R.id.activity_main_lv_contact);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> list, View itemList, int position, long id)
+            {
+                Contact contact = new Contact();
+                contact = (Contact) list.getItemAtPosition(position);
 
-        ContactDAO dao = new ContactDAO(this);
-        List<Contact> contactList = dao.findAll();
-        dao.close();
-
-        ContactAdapter adapter = new ContactAdapter(this, contactList);
-        listView.setAdapter(adapter);
-
-        //Adding listener on button and put the navigation
-        Button addButton = (Button)findViewById(R.id.activity_main_bt_add);
+                Intent intent = new Intent(MainActivity.this, FormActivity.class);
+                intent.putExtra("contact", contact);
+                startActivity(intent);
+            }
+        });
 
         addButton.setOnClickListener(new View.OnClickListener()
         {
@@ -53,5 +56,49 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+
+        registerForContextMenu(mListView);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        loadContactList();
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo)
+    {
+        final MenuItem delete = menu.add("Delete");
+        delete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener()
+        {
+            @Override
+            public boolean onMenuItemClick(MenuItem item)
+            {
+                AdapterView.AdapterContextMenuInfo itemInfo = (AdapterView.AdapterContextMenuInfo) menuInfo;
+                Contact contact = (Contact) mListView.getItemAtPosition(itemInfo.position);
+                delete(contact);
+                loadContactList();
+                return false;
+            }
+        });
+    }
+
+    private void loadContactList()
+    {
+        ContactDAO dao = new ContactDAO(this);
+        List<Contact> contactList = dao.findAll();
+        dao.close();
+
+        ContactAdapter adapter = new ContactAdapter(this, contactList);
+        mListView.setAdapter(adapter);
+    }
+
+    private void delete(Contact contact)
+    {
+        ContactDAO dao = new ContactDAO(this);
+        dao.delete(contact);
+        dao.close();
     }
 }

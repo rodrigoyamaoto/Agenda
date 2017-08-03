@@ -3,11 +3,13 @@ package com.example.rodrigo_yoshida.agenda.Model;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.DrawableWrapper;
 
+import java.io.Serializable;
+
 /**
  * Created by rodrigo_yoshida on 31/07/2017.
  */
 
-public class Contact
+public class Contact implements Serializable
 {
     private Long id;
     private String name;

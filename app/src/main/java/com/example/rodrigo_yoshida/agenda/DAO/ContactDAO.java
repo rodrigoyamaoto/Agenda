@@ -48,15 +48,24 @@ public class ContactDAO extends SQLiteOpenHelper
     public void insert(Contact contact)
     {
         SQLiteDatabase db = getWritableDatabase();
-        ContentValues data = new ContentValues();
+        ContentValues contentValues = getContentValues(contact);
+        db.insert("AGENDA", null, contentValues);
+    }
 
-        data.put("NAME", contact.getName());
-        data.put("ORGANIZATION", contact.getOrganization());
-        data.put("TELEPHONE", contact.getTelephone());
-        data.put("EMAIL", contact.getEmail());
-        data.put("ADDRESS", contact.getAddress());
+    public void delete(Contact contact)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        String[] parametro = {contact.getId().toString()};
+        db.delete("AGENDA", "ID = ?", parametro);
+    }
 
-        db.insert("AGENDA", null, data);
+    public void update(Contact contact)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = getContentValues(contact);
+        String[] parametro = {contact.getId().toString()};
+
+        db.update("AGENDA", contentValues, "ID = ?", parametro);
     }
 
     public List<Contact> findAll()
@@ -67,8 +76,7 @@ public class ContactDAO extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(sql, null);
 
         List<Contact> contactList = new ArrayList<Contact>();
-        while (cursor.moveToNext())
-        {
+        while (cursor.moveToNext()) {
             Contact contact = new Contact();
             contact.setId(cursor.getLong(cursor.getColumnIndex("ID")));
             contact.setName(cursor.getString(cursor.getColumnIndex("NAME")));
@@ -81,5 +89,17 @@ public class ContactDAO extends SQLiteOpenHelper
         }
         cursor.close();
         return contactList;
+    }
+
+    private ContentValues getContentValues(Contact contact)
+    {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("NAME", contact.getName());
+        contentValues.put("ORGANIZATION", contact.getOrganization());
+        contentValues.put("TELEPHONE", contact.getTelephone());
+        contentValues.put("EMAIL", contact.getEmail());
+        contentValues.put("ADDRESS", contact.getAddress());
+
+        return contentValues;
     }
 }

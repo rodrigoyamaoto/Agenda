@@ -11,6 +11,8 @@ import com.example.rodrigo_yoshida.agenda.R;
 
 public class FormHelper
 {
+    Contact contact;
+
     EditText name;
     EditText organization;
     EditText telephone;
@@ -19,6 +21,8 @@ public class FormHelper
 
     public FormHelper(FormActivity activity)
     {
+        contact = new Contact();
+
         this.name = (EditText) activity.findViewById(R.id.activity_form_name);
         this.organization = (EditText) activity.findViewById(R.id.activity_form_organization);
         this.telephone = (EditText) activity.findViewById(R.id.activity_form_telephone);
@@ -28,8 +32,6 @@ public class FormHelper
 
     public Contact getContact()
     {
-        Contact contact = new Contact();
-
         contact.setName(name.getText().toString());
         contact.setOrganization(organization.getText().toString());
         contact.setTelephone(telephone.getText().toString());
@@ -37,5 +39,15 @@ public class FormHelper
         contact.setAddress(address.getText().toString());
 
         return contact;
+    }
+
+    public void editContact(Contact contact)
+    {
+        this.name.setText(contact.getName());
+        this.organization.setText(contact.getOrganization());
+        this.telephone.setText(contact.getTelephone());
+        this.email.setText(contact.getEmail());
+        this.address.setText(contact.getAddress());
+        this.contact = contact;
     }
 }
