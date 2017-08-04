@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name"
+        android:singleLine="true"
         android:textSize="15sp"/>
 
     <EditText
@@ -22,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Organization"
+        android:singleLine="true"
         android:textSize="15sp"/>
 
     <EditText
@@ -29,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Telephone"
+        android:inputType="number"
         android:textSize="15sp"/>
 
     <EditText
@@ -36,6 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
+        android:singleLine="true"
         android:textSize="15sp"/>
 
     <EditText
@@ -43,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Address"
+        android:singleLine="true"
         android:textSize="15sp"/>
 
 </LinearLayout>

@@ -73,7 +73,7 @@ public class FormActivity extends AppCompatActivity
             finish();
         }
         else
-            Toast.makeText(this, "Campo nome é obrigatorio", Toast.LENGTH_SHORT).show();
+            mHelper.name.setError("Campo obrigatorio");
     }
 
     public void update()
