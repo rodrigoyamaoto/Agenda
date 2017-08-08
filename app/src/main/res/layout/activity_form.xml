@@ -5,10 +5,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:src="@drawable/ic_camera"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="225dp">
+
+        <ImageView
+            android:id="@+id/activity_form_photo"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#00A8EC"
+            android:src="@drawable/img_person"/>
+
+        <Button
+            android:id="@+id/activity_bt_camera"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/background_camera"/>
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/activity_form_name"

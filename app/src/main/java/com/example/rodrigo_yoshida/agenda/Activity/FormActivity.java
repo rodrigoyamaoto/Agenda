@@ -1,16 +1,22 @@
 package com.example.rodrigo_yoshida.agenda.Activity;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.rodrigo_yoshida.agenda.DAO.ContactDAO;
 import com.example.rodrigo_yoshida.agenda.Model.Contact;
 import com.example.rodrigo_yoshida.agenda.R;
+
+import java.io.File;
 
 public class FormActivity extends AppCompatActivity
 {
@@ -27,11 +33,25 @@ public class FormActivity extends AppCompatActivity
         this.mContact = new Contact();
         this.mHelper = new FormHelper(this);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         mContact = (Contact) intent.getSerializableExtra("contact");
 
         if (mContact != null)
             mHelper.editContact(mContact);
+
+        Button buttonPhoto = (Button)findViewById(R.id.activity_bt_camera);
+        buttonPhoto.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                String dirPhoto = getExternalFilesDir(null) + "/" + System.currentTimeMillis() + ".jpg";
+                File filePhoto = new File(dirPhoto);
+                intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(filePhoto));
+                startActivity(intentCamera);
+            }
+        });
     }
 
     @Override
