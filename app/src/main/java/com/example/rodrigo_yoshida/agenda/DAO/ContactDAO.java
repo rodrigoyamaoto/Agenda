@@ -11,16 +11,12 @@ import com.example.rodrigo_yoshida.agenda.Model.Contact;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by rodrigo_yoshida on 02/08/2017.
- */
-
 public class ContactDAO extends SQLiteOpenHelper
 {
 
     public ContactDAO(Context context)
     {
-        super(context, "Agenda", null, 1);
+        super(context, "Agenda", null, 2);
     }
 
     @Override
@@ -28,6 +24,7 @@ public class ContactDAO extends SQLiteOpenHelper
     {
         String sql = "CREATE TABLE AGENDA ("
                 + "ID INTEGER PRIMARY KEY,"
+                + "PATH_PHOTO TEXT,"
                 + "NAME TEXT NOT NULL,"
                 + "ORGANIZATION TEXT,"
                 + "TELEPHONE TEXT,"
@@ -40,9 +37,12 @@ public class ContactDAO extends SQLiteOpenHelper
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-        String sql = "DROP TABLE IF EXIST AGENDA";
-        db.execSQL(sql);
-        onCreate(db);
+        String sql;
+        switch (oldVersion){
+            case 1:
+                sql = "ALTER TABLE AGENDA ADD COLUMN PATH_PHOTO TEXT";
+                db.execSQL(sql);
+        }
     }
 
     public void insert(Contact contact)
@@ -79,6 +79,7 @@ public class ContactDAO extends SQLiteOpenHelper
         while (cursor.moveToNext()) {
             Contact contact = new Contact();
             contact.setId(cursor.getLong(cursor.getColumnIndex("ID")));
+            contact.setPathPhoto(cursor.getString(cursor.getColumnIndex("PATH_PHOTO")));
             contact.setName(cursor.getString(cursor.getColumnIndex("NAME")));
             contact.setOrganization(cursor.getString(cursor.getColumnIndex("ORGANIZATION")));
             contact.setTelephone(cursor.getString(cursor.getColumnIndex("TELEPHONE")));
@@ -94,6 +95,7 @@ public class ContactDAO extends SQLiteOpenHelper
     private ContentValues getContentValues(Contact contact)
     {
         ContentValues contentValues = new ContentValues();
+        contentValues.put("PATH_PHOTO", contact.getPathPhoto());
         contentValues.put("NAME", contact.getName());
         contentValues.put("ORGANIZATION", contact.getOrganization());
         contentValues.put("TELEPHONE", contact.getTelephone());

@@ -1,17 +1,12 @@
 package com.example.rodrigo_yoshida.agenda.Model;
 
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableWrapper;
-
 import java.io.Serializable;
 
-/**
- * Created by rodrigo_yoshida on 31/07/2017.
- */
 
 public class Contact implements Serializable
 {
     private Long id;
+    private String pathPhoto;
     private String name;
     private String organization;
     private String telephone;
@@ -21,6 +16,16 @@ public class Contact implements Serializable
     public Long getId()
     {
         return id;
+    }
+
+    public String getPathPhoto()
+    {
+        return pathPhoto;
+    }
+
+    public void setPathPhoto(String pathPhoto)
+    {
+        this.pathPhoto = pathPhoto;
     }
 
     public void setId(Long id)
