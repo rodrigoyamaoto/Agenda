@@ -1,6 +1,8 @@
 package com.example.rodrigo_yoshida.agenda.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.rodrigo_yoshida.agenda.Activity.FormHelper;
 import com.example.rodrigo_yoshida.agenda.Model.Contact;
 import com.example.rodrigo_yoshida.agenda.R;
 
@@ -54,11 +57,19 @@ public class ContactAdapter extends BaseAdapter
         Contact contact = this.contactList.get(position);
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_contact, parent, false);
+        View view = inflater.inflate(R.layout.list_item_contact, parent, false);
 
+        ImageView photo = (ImageView) view.findViewById(R.id.item_contact_photo);
         TextView name = (TextView) view.findViewById(R.id.item_contact_name);
+        TextView telephone = (TextView) view.findViewById((R.id.item_contact_telephone));
 
-        name.setText(contact.getId() + " - " + contact.getName());
+        Bitmap bitmap = BitmapFactory.decodeFile(contactList.get(position).getPathPhoto());
+        Bitmap lowerBitmap = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
+        photo.setImageBitmap(lowerBitmap);
+        photo.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        name.setText(contact.getName());
+        telephone.setText(contact.getTelephone());
 
         return view;
     }
