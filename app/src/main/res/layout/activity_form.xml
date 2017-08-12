@@ -41,13 +41,28 @@
         android:singleLine="true"
         android:textSize="15sp"/>
 
-    <EditText
-        android:id="@+id/activity_form_telephone"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Telephone"
-        android:inputType="number"
-        android:textSize="15sp"/>
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/activity_form_telephone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="Telephone"
+            android:inputType="number"
+            android:textSize="15sp"/>
+
+        <Spinner
+            android:id="@+id/activity_form_type_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"/>
+
+    </LinearLayout>
+
 
     <EditText
         android:id="@+id/activity_form_email"

@@ -10,6 +10,7 @@ public class Contact implements Serializable
     private String name;
     private String organization;
     private String telephone;
+    private String typeTelephone;
     private String email;
     private String address;
 
@@ -61,6 +62,16 @@ public class Contact implements Serializable
     public void setTelephone(String telephone)
     {
         this.telephone = telephone;
+    }
+
+    public String getTypeTelephone()
+    {
+        return typeTelephone;
+    }
+
+    public void setTypeTelephone(String typeTelephone)
+    {
+        this.typeTelephone = typeTelephone;
     }
 
     public String getEmail()

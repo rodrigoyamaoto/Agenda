@@ -14,11 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.rodrigo_yoshida.agenda.Adapter.SpinnerAdapter;
 import com.example.rodrigo_yoshida.agenda.BuildConfig;
 import com.example.rodrigo_yoshida.agenda.DAO.ContactDAO;
 import com.example.rodrigo_yoshida.agenda.Model.Contact;
+import com.example.rodrigo_yoshida.agenda.Model.TypesTelephone;
 import com.example.rodrigo_yoshida.agenda.R;
 
 import java.io.File;
@@ -62,6 +65,11 @@ public class FormActivity extends AppCompatActivity
                 startActivityForResult(intentCamera, CODIGO_CAMERA);
             }
         });
+
+        //Load Spinner
+        Spinner spinner = (Spinner) findViewById(R.id.activity_form_type_phone);
+        SpinnerAdapter spinnerAdapter = new SpinnerAdapter(this, TypesTelephone.getTypes());
+        spinner.setAdapter(spinnerAdapter);
     }
 
     @Override

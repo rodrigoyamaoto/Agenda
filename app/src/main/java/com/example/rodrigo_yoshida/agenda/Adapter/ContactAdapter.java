@@ -3,24 +3,18 @@ package com.example.rodrigo_yoshida.agenda.Adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.rodrigo_yoshida.agenda.Activity.FormHelper;
 import com.example.rodrigo_yoshida.agenda.Model.Contact;
 import com.example.rodrigo_yoshida.agenda.R;
 
 import java.util.List;
-import java.util.Objects;
-
-/**
- * Created by rodrigo_yoshida on 01/08/2017.
- */
 
 public class ContactAdapter extends BaseAdapter
 {
@@ -66,7 +60,7 @@ public class ContactAdapter extends BaseAdapter
         Bitmap bitmap = BitmapFactory.decodeFile(contactList.get(position).getPathPhoto());
         Bitmap lowerBitmap = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
         photo.setImageBitmap(lowerBitmap);
-        photo.setScaleType(ImageView.ScaleType.FIT_XY);
+        photo.setRotation(90);
 
         name.setText(contact.getName());
         telephone.setText(contact.getTelephone());

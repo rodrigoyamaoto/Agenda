@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.example.rodrigo_yoshida.agenda.Model.Contact;
 import com.example.rodrigo_yoshida.agenda.R;
@@ -20,6 +21,7 @@ public class FormHelper
     EditText name;
     EditText organization;
     EditText telephone;
+    Spinner spinerTelephone;
     EditText email;
     EditText address;
 
@@ -31,6 +33,7 @@ public class FormHelper
         this.name = (EditText) activity.findViewById(R.id.activity_form_name);
         this.organization = (EditText) activity.findViewById(R.id.activity_form_organization);
         this.telephone = (EditText) activity.findViewById(R.id.activity_form_telephone);
+        this.spinerTelephone = (Spinner) activity.findViewById(R.id.activity_form_type_phone);
         this.email = (EditText) activity.findViewById(R.id.activity_form_email);
         this.address = (EditText) activity.findViewById(R.id.activity_form_address);
     }
@@ -64,6 +67,7 @@ public class FormHelper
         Bitmap bitmap = BitmapFactory.decodeFile(pathPhoto);
         Bitmap lowerBitmap = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
         photo.setImageBitmap(lowerBitmap);
+        photo.setRotation(90);
         photo.setScaleType(ImageView.ScaleType.FIT_XY);
         photo.setTag(pathPhoto);
     }
